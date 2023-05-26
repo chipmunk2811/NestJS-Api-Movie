@@ -1,0 +1,117 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model Banner {
+  ma_banner Int    @id @default(autoincrement())
+  ma_phim   Int
+  hinh_anh  String @db.VarChar(255)
+  Phim      Phim   @relation(fields: [ma_phim], references: [ma_phim], onDelete: NoAction, onUpdate: NoAction, map: "Banner_ibfk_1")
+
+  @@index([ma_phim], map: "ma_phim")
+}
+
+model CumRap {
+  ma_cum_rap      Int        @id @default(autoincrement())
+  ten_cum_rap     String     @db.VarChar(50)
+  dia_chi         String     @db.VarChar(100)
+  ma_he_thong_rap Int
+  HeThongRap      HeThongRap @relation(fields: [ma_he_thong_rap], references: [ma_he_thong_rap], onDelete: NoAction, onUpdate: NoAction, map: "CumRap_ibfk_1")
+  RapPhim         RapPhim[]
+
+  @@index([ma_he_thong_rap], map: "ma_he_thong_rap")
+}
+
+model DatVe {
+  ma_ve         Int       @id @default(autoincrement())
+  tai_khoan     String    @db.VarChar(100)
+  ma_lich_chieu Int
+  ma_ghe        Int
+  NguoiDung     NguoiDung @relation(fields: [tai_khoan], references: [tai_khoan], onDelete: NoAction, onUpdate: NoAction, map: "DatVe_ibfk_1")
+  LichChieu     LichChieu @relation(fields: [ma_lich_chieu], references: [ma_lich_chieu], onDelete: NoAction, onUpdate: NoAction, map: "DatVe_ibfk_2")
+  Ghe           Ghe       @relation(fields: [ma_ghe], references: [ma_ghe], onDelete: NoAction, onUpdate: NoAction, map: "DatVe_ibfk_3")
+
+  @@index([ma_ghe], map: "ma_ghe")
+  @@index([ma_lich_chieu], map: "ma_lich_chieu")
+  @@index([tai_khoan], map: "tai_khoan")
+}
+
+model Ghe {
+  ma_ghe       Int      @id @default(autoincrement())
+  ten_ghe      String   @db.VarChar(50)
+  loai_ghe     String   @db.VarChar(50)
+  ma_rap       Int
+  da_dat       Boolean?
+  ty_le_gia_ve Float?   @db.Float
+  DatVe        DatVe[]
+  RapPhim      RapPhim  @relation(fields: [ma_rap], references: [ma_rap], onDelete: NoAction, onUpdate: NoAction, map: "Ghe_ibfk_1")
+
+  @@index([ma_rap], map: "ma_rap")
+}
+
+model HeThongRap {
+  ma_he_thong_rap  Int      @id @default(autoincrement())
+  ten_he_thong_rap String   @db.VarChar(50)
+  logo             String   @db.VarChar(255)
+  CumRap           CumRap[]
+}
+
+model LichChieu {
+  ma_lich_chieu  Int      @id @default(autoincrement())
+  ma_rap         Int
+  ma_phim        Int
+  ngay_gio_chieu DateTime @db.DateTime(0)
+  gia_ve         Int
+  DatVe          DatVe[]
+  RapPhim        RapPhim  @relation(fields: [ma_rap], references: [ma_rap], onDelete: NoAction, onUpdate: NoAction, map: "LichChieu_ibfk_1")
+  Phim           Phim     @relation(fields: [ma_phim], references: [ma_phim], onDelete: NoAction, onUpdate: NoAction, map: "LichChieu_ibfk_2")
+
+  @@index([ma_phim], map: "ma_phim")
+  @@index([ma_rap], map: "ma_rap")
+}
+
+model NguoiDung {
+  tai_khoan       String  @id @db.VarChar(100)
+  ho_ten          String  @db.VarChar(100)
+  email           String  @db.VarChar(100)
+  so_dt           String  @db.VarChar(20)
+  mat_khau        String  @db.VarChar(255)
+  loai_nguoi_dung String  @default(dbgenerated("(_utf8mb4\\'KhachHang\\')")) @db.VarChar(100)
+  accessToken     String? @db.MediumText
+  DatVe           DatVe[]
+}
+
+model Phim {
+  ma_phim         Int         @id @default(autoincrement())
+  ten_phim        String      @db.VarChar(255)
+  trailer         String      @db.VarChar(255)
+  hinh_anh        String      @db.VarChar(255)
+  ngay_khoi_chieu DateTime    @db.Date
+  dang_chieu      Boolean
+  quoc_gia        String      @db.VarChar(50)
+  dien_vien       String      @db.VarChar(255)
+  the_loai        String      @db.VarChar(255)
+  dao_dien        String      @db.VarChar(255)
+  thoi_luong      Int?
+  danh_gia        Float       @db.Float
+  mo_ta           String      @db.LongText
+  hot             Int
+  Banner          Banner[]
+  LichChieu       LichChieu[]
+}
+
+model RapPhim {
+  ma_rap     Int         @id @default(autoincrement())
+  ten_rap    String      @db.VarChar(50)
+  ma_cum_rap Int
+  Ghe        Ghe[]
+  LichChieu  LichChieu[]
+  CumRap     CumRap      @relation(fields: [ma_cum_rap], references: [ma_cum_rap], onDelete: NoAction, onUpdate: NoAction, map: "RapPhim_ibfk_1")
+
+  @@index([ma_cum_rap], map: "ma_cum_rap")
+}
