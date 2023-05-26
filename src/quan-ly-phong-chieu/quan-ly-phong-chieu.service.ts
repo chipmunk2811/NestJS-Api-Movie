@@ -74,7 +74,7 @@ export class QuanLyPhongChieuService {
     const checkMaRap = await prisma.rapPhim.findFirst({ where: { ma_rap: id } });
     if (checkMaRap) {
       const { ma_ghe, ten_ghe, loai_ghe, da_dat, ty_le_gia_ve } = body;
-      if (ma_ghe && ten_ghe && loai_ghe && da_dat && ty_le_gia_ve) {
+      if (ma_ghe && ten_ghe && loai_ghe && ty_le_gia_ve) {
         const newData = { ma_ghe, ten_ghe, loai_ghe, ma_rap: id, da_dat, ty_le_gia_ve };
         await prisma.ghe.create({ data: newData });
         const res = new Response(201, `Tạo Thành Công Ghế Của Mã Rạp ${id}`, newData);

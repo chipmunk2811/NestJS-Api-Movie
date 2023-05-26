@@ -55,13 +55,10 @@ export class QuanLyDatVeService {
     return res;
   }
 
-
-
-
-
   async remove(id: number): Promise<typesResponse<DatVe>> {
     const checkMaVe = await prisma.datVe.findFirst({ where: { ma_ve: id } });
     if (checkMaVe) {
+      await prisma.datVe.delete({ where: { ma_ve: id } });
       const res = new Response(202, "Đã Hủy Đặt Vé Thành Công", checkMaVe)
       return res;
     } else {
