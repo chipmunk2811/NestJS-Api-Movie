@@ -16,6 +16,16 @@
 						{
 							"name": "Lấy Thông Tin Hệ Thống Rạp",
 							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InRhaV9raG9hbiI6InJvb3QiLCJob190ZW4iOiJBZG1pbiIsImVtYWlsIjoiY2hpcG11bmsyODExQHlhaG9vLmNvbSIsInNvX2R0IjoiMDc4NDU0NzI4MiIsIm1hdF9raGF1IjoiJDJiJDEwJEVHSU1US1FhQkxnUXNDVzlkM2pCQy53TnQ5M2x1NUo1c1g4VWFJS1FOQ212dXFheTdMNnJtIiwibG9haV9uZ3VvaV9kdW5nIjoiUXVhblRyaSJ9LCJpYXQiOjE2ODUxMTU0NDMsImV4cCI6MTcxNjY1MTQ0M30.gHmer_26npx4tCMSf1mqsEUwRz5eeZHBRP5D7dyi3No",
+											"type": "string"
+										}
+									]
+								},
 								"method": "GET",
 								"header": [],
 								"url": {
@@ -324,11 +334,21 @@
 				{
 					"name": "Thêm Ghế Cho Phòng Chiếu",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJkYXRhIjp7InRhaV9raG9hbiI6InJvb3QiLCJob190ZW4iOiJBZG1pbiIsImVtYWlsIjoiY2hpcG11bmsyODExQHlhaG9vLmNvbSIsInNvX2R0IjoiMDc4NDU0NzI4MiIsIm1hdF9raGF1IjoiJDJiJDEwJEVHSU1US1FhQkxnUXNDVzlkM2pCQy53TnQ5M2x1NUo1c1g4VWFJS1FOQ212dXFheTdMNnJtIiwibG9haV9uZ3VvaV9kdW5nIjoiUXVhblRyaSJ9LCJpYXQiOjE2ODUxMTU0NDMsImV4cCI6MTcxNjY1MTQ0M30.gHmer_26npx4tCMSf1mqsEUwRz5eeZHBRP5D7dyi3No",
+									"type": "string"
+								}
+							]
+						},
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"ma_ghe\": 70103001,\r\n    \"ten_ghe\": \"A1\",\r\n    \"loai_ghe\": \"Thuong\",\r\n    \"da_dat\": false,\r\n    \"ty_le_gia_ve\": 1\r\n}",
+							"raw": "{\r\n    \"ma_ghe\": 120101001,\r\n    \"ten_ghe\": \"A1\",\r\n    \"loai_ghe\": \"Thuong\",\r\n    \"da_dat\": true,\r\n    \"ty_le_gia_ve\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -336,7 +356,7 @@
 							}
 						},
 						"url": {
-							"raw": "{{domain}}/api/QuanLyPhongChieu/Post-Ghe/70103",
+							"raw": "{{domain}}/api/QuanLyPhongChieu/Post-Ghe/120101",
 							"host": [
 								"{{domain}}"
 							],
@@ -344,7 +364,7 @@
 								"api",
 								"QuanLyPhongChieu",
 								"Post-Ghe",
-								"70103"
+								"120101"
 							]
 						}
 					},
@@ -698,7 +718,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"tai_khoan\":\"test\",\r\n    \"mat_khau\":\"1234\"\r\n}",
+							"raw": "{\r\n    \"tai_khoan\":\"root\",\r\n    \"mat_khau\":\"1234\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -983,7 +1003,7 @@
 	"variable": [
 		{
 			"key": "domain",
-			"value": "http://103.97.124.164:3200",
+			"value": "http://103.38.236.70:3200",
 			"type": "string"
 		}
 	]
