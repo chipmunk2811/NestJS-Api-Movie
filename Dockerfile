@@ -1,6 +1,6 @@
 FROM node:16
 
-WORKDIR /app
+WORKDIR /usr/src/app_api_movie
 
 COPY package*.json ./
 COPY prisma ./prisma/

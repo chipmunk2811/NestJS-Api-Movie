@@ -1,0 +1,39 @@
+#  Như chạy lệnh docker run -d --name mysql_db -p 3307:3306 -e MYSQL_ROOT_PASSWORD=1234 mysql_db
+version: '3.8'
+services:
+  # Tên image
+  db_api_movie:
+    image: mysql # docker pull mysql
+    container_name: db-api-movie
+    environment:
+      - MYSQL_ROOT_PASSWORD=1234
+      - MYSQL_DATABASE=db_api_movie
+    ports:
+      - 3306:3306
+    volumes:
+      - volumes_api_movie:/var/lib/mysql
+    networks:
+      - network_api_movie
+
+  app_api_movie:
+    # kết nối với image database
+    depends_on:
+      - db_api_movie
+    build: .  # tìm file Dockerfile docker build . -t img-node 
+    container_name: Api-Movie
+    env_file:
+      - .env
+    ports:
+      - 3200:8080
+    networks:
+      - network_api_movie
+
+volumes:
+  volumes_api_movie:
+    driver: local
+
+# Tên networks docker network ls
+networks:
+  network_api_movie:
+
+# Chạy lệnh docker-compose up -d
